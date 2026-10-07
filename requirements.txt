@@ -1,0 +1,12 @@
+# Tested with Python 3.14 on macOS (MPS) and on a Kaggle Tesla T4 (CUDA).
+# pesq has no wheel for Python 3.14, pip builds it from source, which needs a
+# C compiler (on macOS: xcode-select --install).
+
+torch==2.14.0
+numpy==2.5.3
+scipy==1.18.1
+einops==0.8.2
+soundfile==0.14.0
+tqdm==4.70.1
+pesq==0.0.4
+pystoi==0.4.1

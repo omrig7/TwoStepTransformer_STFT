@@ -1,0 +1,20 @@
+# The dataset is several GB, download it into noisereducer/data/
+noisereducer/data/
+
+# Training runs. Only our best run is kept in git.
+noisereducer/runs/*
+!noisereducer/runs/baseline/
+
+# Personal recordings and the cleaned audio
+noisereducer/inference/
+
+# Earlier work and the write-up, kept locally only
+legacy/
+docs/
+
+.venv/
+.idea/
+__pycache__/
+*.py[cod]
+.DS_Store
+*.zip

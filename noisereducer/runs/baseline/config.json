@@ -1,0 +1,47 @@
+{
+  "stft": {
+    "sample_rate": 16000,
+    "n_fft": 512,
+    "hop_length": 128
+  },
+  "features": {
+    "exponent": 0.3,
+    "magnitude_floor": 1e-05,
+    "std_floor": 1e-05
+  },
+  "model": {
+    "channels": 64,
+    "width": 48,
+    "heads": 4,
+    "blocks": 4,
+    "frequency_stride": 4,
+    "time_stride": 4
+  },
+  "loss": {
+    "time_weight": 0.4,
+    "magnitude_weight": 0.6
+  },
+  "data": {
+    "root": "/kaggle/input/datasets/omrigrosglick/voiceondemand-16k",
+    "noisy_train": "noisy_trainset_28spk_wav",
+    "clean_train": "clean_trainset_28spk_wav",
+    "noisy_test": "noisy_testset_wav",
+    "clean_test": "clean_testset_wav",
+    "max_seconds": 8.0,
+    "batch_seconds": 12.0,
+    "held_out_speakers": 0.1,
+    "workers": 4
+  },
+  "train": {
+    "epochs": 60,
+    "batch_size": 4,
+    "learning_rate": 0.0005,
+    "weight_decay": 0.01,
+    "clip_norm": 5.0,
+    "seed": 0,
+    "score_utterances": 200,
+    "lr_patience": 3,
+    "lr_factor": 0.5,
+    "lr_minimum": 1e-05
+  }
+}
