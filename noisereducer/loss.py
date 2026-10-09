@@ -49,6 +49,7 @@ class EnhancementLoss(nn.Module):
         self.features = features
         self.time_weight = config.time_weight
         self.magnitude_weight = config.magnitude_weight
+        self.error = {"mse": torch.square, "l1": torch.abs}[config.error]
 
     def forward(self, enhanced, clean, lengths=None):
         # The target: compressed magnitude of the clean audio.
@@ -65,7 +66,7 @@ class EnhancementLoss(nn.Module):
         # mask * compressed noisy magnitude, i.e. still in the compressed domain
         estimate = enhanced.mask * enhanced.compressed
 
-        magnitude = masked_mean((estimate - target).pow(2), frames)
-        time = masked_mean((enhanced.waveform - clean).pow(2), samples)
+        magnitude = masked_mean(self.error(estimate - target), frames)
+        time = masked_mean(self.error(enhanced.waveform - clean), samples)
         total = self.time_weight * time + self.magnitude_weight * magnitude
         return LossTerms(total, time, magnitude)

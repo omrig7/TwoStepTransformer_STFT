@@ -1,0 +1,18 @@
+{
+  "last_epoch": 24,
+  "best_epoch": 22,
+  "best_validation_quality": {
+    "pesq": 2.8105897808074953,
+    "stoi": 0.92099842518294,
+    "sisdr": 15.664101253968267,
+    "scored": 200
+  },
+  "completed_epochs_beyond_original": 8,
+  "original_best_validation_quality": {
+    "pesq": 2.799977754354477,
+    "stoi": 0.9209166368320618,
+    "sisdr": 15.575380133131864,
+    "scored": 200
+  },
+  "test_evaluated": false
+}

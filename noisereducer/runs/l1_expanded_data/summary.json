@@ -1,0 +1,41 @@
+{
+  "experiment": "E03_L1",
+  "last_round": 24,
+  "completed_E03_rounds": 8,
+  "target_completed": true,
+  "selected_checkpoint_epoch_or_round": 19,
+  "selected_checkpoint_loss": {
+    "time_weight": 0.4,
+    "magnitude_weight": 0.6,
+    "time_error": "l1",
+    "magnitude_error": "l1"
+  },
+  "selected_validation_quality": {
+    "pesq": 2.8285989594459533,
+    "stoi": 0.9210600393796032,
+    "sisdr": 15.874327348351697,
+    "scored": 200
+  },
+  "best_new_E03_round": 19,
+  "best_new_E03_quality": {
+    "pesq": 2.8285989594459533,
+    "stoi": 0.9210600393796032,
+    "sisdr": 15.874327348351697,
+    "scored": 200
+  },
+  "best_new_checkpoint_retained": true,
+  "E02_best_round": 19,
+  "E02_best_quality": {
+    "pesq": 2.826482725739479,
+    "stoi": 0.9209159963466432,
+    "sisdr": 15.669326245311716,
+    "scored": 200
+  },
+  "selected_PESQ_difference_vs_E02": 0.00211623370647418,
+  "new_L1_PESQ_difference_vs_E02": 0.00211623370647418,
+  "total_E03_round_seconds": 20915.546476395,
+  "training_pool": 33300,
+  "presentations_per_round": 10225,
+  "test_evaluated": false,
+  "note": "Validation only. Do not compare raw MSE and L1 losses. best.pt retains original epoch 15 if no new round improves PESQ."
+}

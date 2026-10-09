@@ -18,7 +18,11 @@ The code, in the order the audio goes through it:
 
 The folders:
     data/             VoiceBank-DEMAND at 16 kHz (data/voicebank_demand/16k/)
-    runs/             one folder per training run; runs/baseline is our best model
+    runs/             one folder per training run:
+                      runs/baseline: the original run (the settings in config.py)
+                      runs/baseline_continued: baseline epoch 16 trained 8 more epochs
+                      runs/l1_expanded_data: same, with L1 loss and the 56spk data
+                      added, our best model
     inference/noisy/  put your own recordings here
     inference/clean/  the cleaned recordings are saved here
 """

@@ -7,7 +7,7 @@ The first run creates the folder inference/ with two folders in it:
                        files with the same names
 
 RUN_NAME is the folder in runs/ whose best.pt is used. The default,
-"baseline", is our best model. A real recording has no clean version to
+"l1_expanded_data", is our best model. A real recording has no clean version to
 compare with, so nothing is scored here; run_eval.py does the scoring.
 """
 
@@ -20,7 +20,7 @@ from noisereducer.config import ROOT_DIR
 from noisereducer.enhancement import (best_checkpoint, enhance_folder,
                                       list_audio_files, load_model, pick_device)
 
-RUN_NAME = "baseline"
+RUN_NAME = "l1_expanded_data"
 
 INFERENCE_DIR = ROOT_DIR / "inference"
 NOISY_DIR = INFERENCE_DIR / "noisy"

@@ -1,7 +1,7 @@
 """Train the model: open this file in PyCharm and press Run.
 
-It uses the settings in config.py, which are the settings of our best run
-(PESQ 2.80 on the validation speakers). Everything is saved in runs/<RUN_NAME>:
+It uses the settings in config.py, which are the settings of our original run
+runs/baseline (PESQ 2.80 on the validation speakers). Everything is saved in runs/<RUN_NAME>:
 
     best.pt       weights of the epoch with the best PESQ (inference uses this)
     last.pt       the latest state of everything, to continue a stopped run

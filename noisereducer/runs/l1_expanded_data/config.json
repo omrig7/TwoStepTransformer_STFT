@@ -1,0 +1,70 @@
+{
+  "name": "e03_l1_v1",
+  "stft": {
+    "sample_rate": 16000,
+    "n_fft": 512,
+    "hop_length": 128,
+    "window": "hann",
+    "center": true
+  },
+  "features": {
+    "exponent": 0.3,
+    "magnitude_floor": 1e-05,
+    "std_floor": 1e-05
+  },
+  "model": {
+    "channels": 64,
+    "width": 48,
+    "heads": 4,
+    "blocks": 4,
+    "frequency_stride": 4,
+    "time_stride": 4,
+    "axes": [
+      "frequency",
+      "time"
+    ],
+    "topology": "series"
+  },
+  "loss": {
+    "time_weight": 0.4,
+    "magnitude_weight": 0.6,
+    "time_error": "l1",
+    "magnitude_error": "l1"
+  },
+  "data": {
+    "root": "/kaggle/temp/e03_l1/audio_16k",
+    "noisy_train": "noisy_trainset_e03_wav",
+    "clean_train": "clean_trainset_e03_wav",
+    "noisy_test": "noisy_testset_wav",
+    "clean_test": "clean_testset_wav",
+    "max_seconds": 8.0,
+    "batch_seconds": 12.0,
+    "held_out_speakers": 0.1,
+    "validation_speakers": [
+      "p230",
+      "p250",
+      "p259"
+    ],
+    "workers": 4,
+    "train_utterances": 0,
+    "train_draw": 10225,
+    "train_eval_utterances": 1000,
+    "mix_probability": 0.0,
+    "mix_snr_low": -5.0,
+    "mix_snr_high": 20.0
+  },
+  "train": {
+    "epochs": 24,
+    "batch_size": 4,
+    "learning_rate": 0.0005,
+    "weight_decay": 0.01,
+    "clip_norm": 5.0,
+    "seed": 0,
+    "select_on": "pesq",
+    "score_utterances": 200,
+    "lr_patience": 3,
+    "lr_factor": 0.5,
+    "lr_minimum": 1e-05,
+    "precision": "auto"
+  }
+}

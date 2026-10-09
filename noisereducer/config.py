@@ -1,9 +1,10 @@
 """All the settings of the project in one place.
 
-The default values are exactly the ones of our best run (runs/baseline), the
-one that reached PESQ 2.80 on the validation speakers after 15 epochs on a
-Kaggle T4. If you want to try something, change it here and every other file
-will pick it up.
+The default values are exactly the ones of our original run (runs/baseline),
+the one that reached PESQ 2.80 on the validation speakers after 15 epochs on a
+Kaggle T4. Our best model (runs/l1_expanded_data) continued it with an L1 loss
+and more data, see its config.json. If you want to try something, change it
+here and every other file will pick it up.
 """
 
 from dataclasses import asdict, dataclass, field
@@ -74,6 +75,7 @@ class LossConfig:
 
     time_weight: float = 0.4
     magnitude_weight: float = 0.6
+    error: str = "mse"  # "mse" (squared error) or "l1" (absolute error, runs/l1_expanded_data)
 
 
 @dataclass

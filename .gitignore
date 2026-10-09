@@ -1,9 +1,11 @@
 # The dataset is several GB, download it into noisereducer/data/
 noisereducer/data/
 
-# Training runs. Only our best run is kept in git.
+# Training runs. Only the runs we report are kept in git.
 noisereducer/runs/*
 !noisereducer/runs/baseline/
+!noisereducer/runs/baseline_continued/
+!noisereducer/runs/l1_expanded_data/
 
 # Personal recordings and the cleaned audio
 noisereducer/inference/
