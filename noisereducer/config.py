@@ -22,7 +22,7 @@ class StftConfig:
 
     sample_rate: int = 16_000
     n_fft: int = 512  # 32 ms window -> 257 frequency bins
-    hop_length: int = 128  # 8 ms hop -> 75% overlap, which Hann needs for perfect reconstruction
+    hop_length: int = 128  # 8 ms hop -> 75% overlap, every sample is rebuilt from 4 frames
 
     def build(self):
         from noisereducer.dsp import StftTransform

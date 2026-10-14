@@ -1,0 +1,32 @@
+{
+  "last_round": 24,
+  "selected_checkpoint_epoch_or_round": 19,
+  "completed_E02_rounds": 8,
+  "selected_validation_quality": {
+    "pesq": 2.826482725739479,
+    "stoi": 0.9209159963466432,
+    "sisdr": 15.669326245311716,
+    "scored": 200
+  },
+  "best_new_E02_round": 19,
+  "best_new_E02_quality": {
+    "pesq": 2.826482725739479,
+    "stoi": 0.9209159963466432,
+    "sisdr": 15.669326245311716,
+    "scored": 200
+  },
+  "E01_best_epoch": 22,
+  "E01_best_quality": {
+    "pesq": 2.8105897808074953,
+    "stoi": 0.92099842518294,
+    "sisdr": 15.664101253968267,
+    "scored": 200
+  },
+  "PESQ_difference_vs_E01_best": 0.015892944931983788,
+  "STOI_difference_vs_E01_best": -8.242883629672182e-05,
+  "total_E02_round_seconds": 19066.463024889003,
+  "planned_presentations_per_round": 10225,
+  "training_pool": 33300,
+  "test_evaluated": false,
+  "note": "Validation comparison, not a test result or a significance test. Selected checkpoint may remain original epoch 15 if none improves it."
+}

@@ -21,6 +21,7 @@ The folders:
     runs/             one folder per training run:
                       runs/baseline: the original run (the settings in config.py)
                       runs/baseline_continued: baseline epoch 16 trained 8 more epochs
+                      runs/expanded_data: same, with the 56spk data added
                       runs/l1_expanded_data: same, with L1 loss and the 56spk data
                       added, our best model
     inference/noisy/  put your own recordings here

@@ -8,6 +8,7 @@ The part before the underscore is the speaker.
 
 import math
 import random
+import shutil
 import subprocess
 import tempfile
 from pathlib import Path
@@ -19,8 +20,17 @@ from scipy.signal import resample_poly
 from torch.utils.data import DataLoader, Dataset, Sampler
 
 # Formats soundfile cannot open (phone recordings). We convert them to wav
-# with afconvert, which comes with macOS.
+# first, with afconvert (comes with macOS) or ffmpeg (any system, if installed).
 CONVERT_FIRST = {".m4a", ".mp4", ".aac", ".mov"}
+
+
+def convert_command(source, wav):
+    if shutil.which("afconvert"):
+        return ["afconvert", "-f", "WAVE", "-d", "LEI16", str(source), str(wav)]
+    if shutil.which("ffmpeg"):
+        return ["ffmpeg", "-loglevel", "error", "-y", "-i", str(source), str(wav)]
+    raise RuntimeError(f"cannot open {source}: {source.suffix} files need ffmpeg "
+                       f"(https://ffmpeg.org), or convert the file to wav first")
 
 
 def read_audio(path, sample_rate=16_000):
@@ -29,10 +39,7 @@ def read_audio(path, sample_rate=16_000):
     if path.suffix.lower() in CONVERT_FIRST:
         with tempfile.TemporaryDirectory() as folder:
             wav = Path(folder) / "converted.wav"
-            subprocess.run(
-                ["afconvert", "-f", "WAVE", "-d", "LEI16", str(path), str(wav)],
-                check=True,
-            )
+            subprocess.run(convert_command(path, wav), check=True)
             return read_audio(wav, sample_rate)
 
     data, rate = soundfile.read(str(path), dtype="float32", always_2d=True)
@@ -241,7 +248,7 @@ def make_loader(config, noisy_dir, clean_dir, names, shuffle, max_samples,
 
 def make_loaders(config):
     """The three loaders the training needs.
-
+ 
     train      - the training speakers, shuffled, random crops
     validation - the held-out speakers, fixed order, for the validation loss
     score      - 200 of the held-out utterances, whole and one at a time, for PESQ

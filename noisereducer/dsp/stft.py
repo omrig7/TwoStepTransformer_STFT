@@ -9,9 +9,13 @@ Two things to know:
   broadband noise. That is why autocast is switched off inside analyze and
   synthesize.
 
-We use a Hann window with 75% overlap (512 window, 128 hop). The windows then
-sum to a constant (the COLA condition), so the inverse STFT gives back exactly
-the input.
+We use a Hann window with 75% overlap (512 window, 128 hop). Hann goes to zero
+at both ends, so it leaks much less between bins than cutting the frame
+sharply, and every frame the mask changed fades in and out on the way back.
+The inverse STFT divides by the sum of the squared windows, so it gives back
+the input exactly at any overlap where that sum is never zero. 75% is for the
+mask: every sample is an average of 4 frames, and for Hann at this overlap the
+sum is constant (1.5), so every sample gets the same weight.
 """
 
 import torch

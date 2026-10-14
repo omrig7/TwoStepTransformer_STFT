@@ -4,7 +4,7 @@ The first run creates the folder inference/ with two folders in it:
     inference/noisy/   put the recordings you want to clean here
                        (wav, mp3, m4a...)
     inference/clean/   the cleaned recordings are saved here, as 16 kHz wav
-                       files with the same names
+                       files named <name>_clean.wav
 
 RUN_NAME is the folder in runs/ whose best.pt is used. The default,
 "l1_expanded_data", is our best model. A real recording has no clean version to

@@ -107,12 +107,12 @@ def list_audio_files(folder):
 
 def enhance_folder(model, noisy_dir, clean_dir, sample_rate=16_000):
     """Clean the audio files in noisy_dir one by one, and save every cleaned
-    waveform in clean_dir under the same name, as a wav file."""
+    waveform in clean_dir as <name>_clean.wav."""
     files = list_audio_files(noisy_dir)
     for path in tqdm(files, desc="cleaning"):
         noisy = read_audio(path, sample_rate)
         cleaned = enhance(model, noisy, sample_rate)
         # A wav file can only hold values between -1 and 1.
         waveform = np.clip(cleaned.numpy(), -1.0, 1.0)
-        soundfile.write(Path(clean_dir) / f"{path.stem}.wav", waveform, sample_rate)
+        soundfile.write(Path(clean_dir) / f"{path.stem}_clean.wav", waveform, sample_rate)
     return len(files)

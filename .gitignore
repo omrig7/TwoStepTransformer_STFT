@@ -5,14 +5,18 @@ noisereducer/data/
 noisereducer/runs/*
 !noisereducer/runs/baseline/
 !noisereducer/runs/baseline_continued/
+!noisereducer/runs/expanded_data/
 !noisereducer/runs/l1_expanded_data/
 
 # Personal recordings and the cleaned audio
 noisereducer/inference/
 
-# Earlier work and the write-up, kept locally only
+# Earlier work, kept locally only
 legacy/
-docs/
+
+# Office lock files and local render previews
+~$*
+.preview/
 
 .venv/
 .idea/
