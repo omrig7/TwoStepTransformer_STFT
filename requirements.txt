@@ -2,6 +2,8 @@
 # Kaggle Tesla T4 (NVIDIA GPU); it also runs on CPU, only slower.
 # If pip has no ready-made pesq for your Python, it builds it, which needs a C
 # compiler (macOS: xcode-select --install, Windows: Microsoft C++ Build Tools).
+# On Windows without a compiler, take the same pesq ready-built from conda-forge
+# (conda install -c conda-forge pesq) and then pip install the rest.
 
 torch>=2.3
 numpy>=1.24
