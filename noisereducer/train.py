@@ -29,7 +29,7 @@ from noisereducer.config import ROOT_DIR
 from noisereducer.data import make_loaders
 from noisereducer.enhancement import enhance, pick_device
 from noisereducer.loss import EnhancementLoss
-from noisereducer.metrics import as_array, pesq_score, stoi_score
+from noisereducer.metrics import PESQ_MISSING, as_array, pesq_available, pesq_score, stoi_score
 from noisereducer.model import NoiseReducer
 
 
@@ -88,6 +88,9 @@ def score_model(model, loader, device, sample_rate=16_000):
 def train(config, run_name):
     """Train in runs/<run_name>. If that run already has a last.pt we continue
     it from its last finished epoch, otherwise a new run starts there."""
+    # The best epoch is chosen by PESQ, so training cannot run without it.
+    if not pesq_available():
+        raise RuntimeError(PESQ_MISSING)
     run_dir = ROOT_DIR / "runs" / run_name
     continuing = (run_dir / "last.pt").exists()
     if not continuing:

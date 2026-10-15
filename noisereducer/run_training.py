@@ -21,12 +21,16 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))  # so "import noisereducer" works
 
 from noisereducer.config import Config
+from noisereducer.metrics import PESQ_MISSING, pesq_available
 from noisereducer.train import train
 
 # "baseline" continues our 2.8 run (from epoch 17), a new name starts a new run.
 RUN_NAME = "my_run"
 
 def main():
+    if not pesq_available():
+        print(f"cannot train: {PESQ_MISSING}")
+        return
     config = Config()
     # To try something for one run only, change it here, for example:
     # config.train.epochs = 20

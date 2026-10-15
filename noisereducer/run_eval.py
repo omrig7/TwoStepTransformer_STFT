@@ -17,6 +17,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))  # so "import no
 from noisereducer.config import Config
 from noisereducer.enhancement import best_checkpoint, load_model, pick_device
 from noisereducer.evaluation import evaluate, print_scores
+from noisereducer.metrics import PESQ_MISSING, pesq_available
 
 RUN_NAME = "l1_expanded_data"
 
@@ -28,6 +29,9 @@ def main():
     if not noisy_dir.exists():
         raise FileNotFoundError(f"{noisy_dir} does not exist, download the dataset first "
                                 f"(see README.md)")
+
+    if not pesq_available():
+        print(f"note: {PESQ_MISSING} The other four scores are computed.")
 
     model = load_model(best_checkpoint(RUN_NAME), pick_device())
     averages = evaluate(model, noisy_dir, clean_dir)
