@@ -1,11 +1,10 @@
-# Python 3.10 or newer. Tested with Python 3.14 on macOS (Apple GPU), on a
-# Kaggle Tesla T4 (NVIDIA GPU) and with Python 3.13 on Windows (CPU).
-# pip builds pesq from source, which needs a C compiler (macOS:
-# xcode-select --install). On Windows that compiler is usually missing, so
-# pesq is skipped there and installed with conda instead:
-#   conda install -c conda-forge --no-deps pesq
-# (--no-deps matters, see "Windows" in README.md). Without pesq everything
-# works except the PESQ score and training.
+# Python 3.10 or newer. Tested with Python 3.14 on macOS (Apple GPU) and on a
+# Kaggle Tesla T4 (NVIDIA GPU); it also runs on CPU, only slower.
+# If pip has no ready-made pesq for your Python, it builds it, which needs a C
+# compiler (macOS: xcode-select --install, Windows: Microsoft C++ Build Tools).
+# On Windows without a compiler, take the same pesq ready-built from conda-forge
+# (conda install -c conda-forge --no-deps pesq, see "Windows" in README.md)
+# and then pip install the rest.
 
 torch>=2.3
 numpy>=1.24
@@ -13,5 +12,5 @@ scipy>=1.10
 einops>=0.7
 soundfile>=0.12
 tqdm>=4.60
-pesq>=0.0.4; sys_platform != "win32"
+pesq>=0.0.4
 pystoi>=0.3.3

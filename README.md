@@ -67,20 +67,11 @@ In every script, `RUN_NAME` at the top chooses the run in
 
 ## Windows
 
-On Windows, `pip install -r requirements.txt` installs everything except the
-`pesq` package. pip has no ready-made `pesq` for Windows, and building it
-needs the Microsoft C++ compiler, so requirements.txt skips it there. Without
-`pesq`:
-
-* `run_inference.py` (cleaning your recordings) works as usual,
-* `run_eval.py` prints every score except PESQ, which shows as `n/a`,
-* `run_training.py` stops with a message, because the best epoch is chosen
-  by PESQ.
-
-To get PESQ too, the easiest way is conda
-([Miniconda](https://docs.conda.io/en/latest/miniconda.html) or Anaconda), which
-has a ready-made `pesq` for Windows. In the Anaconda Prompt, in the project
-folder:
+pip cannot install `pesq` on Windows by itself: PyPI has no ready-made `pesq`
+for Windows, and building it needs the Microsoft C++ compiler. The easy way is
+to take `pesq` ready-made from conda
+([Miniconda](https://docs.conda.io/en/latest/miniconda.html) or Anaconda) and
+everything else from pip. In the Anaconda Prompt, in the project folder:
 
     conda create -n noisereducer python=3.13
     conda activate noisereducer
@@ -90,13 +81,15 @@ folder:
 Keep `--no-deps`: it takes only `pesq` from conda and everything else from pip.
 Without it conda also installs its own numpy, and a conda numpy next to the pip
 torch crashes on Windows (two OpenMP libraries). With these four lines
-inference, run_eval.py with PESQ, and training all work. In PyCharm, choose
-this `noisereducer` conda environment as the project interpreter, then press
-Run as usual.
+inference, evaluation (with PESQ) and training all work; this was tested on
+Windows 11 with Python 3.13, and `run_eval.py` gave exactly the scores in the
+Results table at the top. In PyCharm, choose this `noisereducer` conda
+environment as the project interpreter, then press Run as usual.
 
 Without conda, install
 [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
-with the "Desktop development with C++" workload, and then `pip install pesq`.
+with the "Desktop development with C++" workload; then `pip install -r
+requirements.txt` builds `pesq` by itself.
 
 On Windows, pip installs the CPU-only build of PyTorch, so even a computer
 with an NVIDIA GPU would train on the CPU. If you have an NVIDIA GPU and want to
@@ -104,10 +97,6 @@ train, first install the CUDA build of PyTorch with the command that
 [pytorch.org](https://pytorch.org/get-started/locally/) gives for Windows, pip
 and CUDA, and only then run `pip install -r requirements.txt`. The training
 prints "training on cuda" when the GPU is used.
-
-Use `py` instead of `python` if the `python` command is not found. In PyCharm,
-pick the environment you installed into as the project interpreter, then
-press Run as usual.
 
 On a computer without an NVIDIA GPU everything runs on the CPU. Cleaning a
 recording takes a few seconds and `run_eval.py` about 40 minutes on a
