@@ -29,6 +29,8 @@ use an NVIDIA GPU or an Apple GPU if there is one, otherwise the CPU.
 
     pip install -r requirements.txt
 
+On Windows, see [Windows](#windows) below first.
+
 **2. Clean your own recordings** (no dataset needed, the trained models are in
 the repository):
 
@@ -62,6 +64,43 @@ run it again to continue.
 In every script, `RUN_NAME` at the top chooses the run in
 `noisereducer/runs/` (the default for testing and cleaning is
 `l1_expanded_data`). All the settings are in `noisereducer/config.py`.
+
+## Windows
+
+pip cannot install `pesq` on Windows by itself: PyPI has no ready-made `pesq`
+for Windows, and building it needs the Microsoft C++ compiler. The easy way is
+to take `pesq` ready-made from conda
+([Miniconda](https://docs.conda.io/en/latest/miniconda.html) or Anaconda) and
+everything else from pip. In the Anaconda Prompt, in the project folder:
+
+    conda create -n noisereducer python=3.13
+    conda activate noisereducer
+    conda install -c conda-forge --no-deps pesq
+    pip install -r requirements.txt
+
+Keep `--no-deps`: it takes only `pesq` from conda and everything else from pip.
+Without it conda also installs its own numpy, and a conda numpy next to the pip
+torch crashes on Windows (two OpenMP libraries). With these four lines
+inference, evaluation (with PESQ) and training all work; this was tested on
+Windows 11 with Python 3.13, and `run_eval.py` gave exactly the scores in the
+Results table at the top. In PyCharm, choose this `noisereducer` conda
+environment as the project interpreter, then press Run as usual.
+
+Without conda, install
+[Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
+with the "Desktop development with C++" workload; then `pip install -r
+requirements.txt` builds `pesq` by itself.
+
+On Windows, pip installs the CPU-only build of PyTorch, so even a computer
+with an NVIDIA GPU would train on the CPU. If you have an NVIDIA GPU and want to
+train, first install the CUDA build of PyTorch with the command that
+[pytorch.org](https://pytorch.org/get-started/locally/) gives for Windows, pip
+and CUDA, and only then run `pip install -r requirements.txt`. The training
+prints "training on cuda" when the GPU is used.
+
+On a computer without an NVIDIA GPU everything runs on the CPU. Cleaning a
+recording takes a few seconds and `run_eval.py` about 40 minutes on a
+laptop, but training is far too slow on a CPU (one epoch takes many hours).
 
 ## Our runs
 
