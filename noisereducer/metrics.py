@@ -8,22 +8,14 @@
 
 If a score cannot be computed (PESQ refuses silence, for example) we return
 nan instead of crashing, so one bad file does not stop an evaluation of 824.
-
-The pesq package is optional. pip has no ready-made pesq for Windows, so on
-Windows it is installed separately (see README.md). Without it, cleaning
-recordings and the other four scores still work, and PESQ is reported as n/a.
 """
 
 import warnings
 
 import numpy as np
 import torch
+from pesq import pesq
 from pystoi import stoi
-
-try:
-    from pesq import pesq
-except ImportError:  # not installed, see pesq_available()
-    pesq = None
 
 FLOOR = 1e-12
 METRICS = ("pesq", "stoi", "estoi", "sisdr", "ssnr")
@@ -75,17 +67,7 @@ def segmental_snr(reference, estimate, frame=256, low=-10.0, high=35.0):
     return float(np.clip(ratio, low, high).mean())
 
 
-PESQ_MISSING = ("the pesq package is not installed, so PESQ cannot be computed. "
-                "On Windows pip cannot install it, see \"Windows\" in README.md.")
-
-
-def pesq_available():
-    return pesq is not None
-
-
 def pesq_score(reference, estimate, sample_rate=16_000):
-    if pesq is None:
-        return float("nan")
     try:
         return float(pesq(sample_rate, reference.astype(np.float32),
                           estimate.astype(np.float32), "wb"))

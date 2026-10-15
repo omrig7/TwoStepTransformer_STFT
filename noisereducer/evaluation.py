@@ -54,8 +54,7 @@ def evaluate(model, noisy_dir, clean_dir, sample_rate=16_000):
 
 
 def print_scores(averages):
-    """A table of the averages, plus how much of the possible gain we got.
-    A score that could not be computed (PESQ without the pesq package) is n/a."""
+    """A table of the averages, plus how much of the possible gain we got."""
     header = ""
     for metric in METRICS:
         header += f"{metric.upper():>9}"
@@ -64,21 +63,13 @@ def print_scores(averages):
     for stage in STAGES:
         line = ""
         for metric in METRICS:
-            line += cell(averages[stage][metric], "9.3f")
+            line += f"{averages[stage][metric]:9.3f}"
         print(f"{stage:14}{line}")
 
     # 0% means the model did nothing, 100% means it reached the ceiling.
     line = ""
     for metric in METRICS:
         noisy = averages["noisy"][metric]
-        room = averages["ceiling"][metric] - noisy
-        gained = (averages["enhanced"][metric] - noisy) / room if room else float("nan")
-        line += cell(100 * gained, "8.1f", "%")
+        gained = (averages["enhanced"][metric] - noisy) / (averages["ceiling"][metric] - noisy)
+        line += f"{100 * gained:8.1f}%"
     print(f"{'% of ceiling':14}{line}")
-
-
-def cell(value, form, suffix=""):
-    """One number of the table, or n/a if it could not be computed."""
-    if np.isnan(value):
-        return f"{'n/a':>9}"
-    return f"{value:{form}}{suffix}"
